@@ -60,7 +60,7 @@ def conv2d_block(input_tensor, n_filters, kernel_size = 3, batchnorm = True):
 
     return x
 
-def unet_2D(pretrained_weights = None,input_size = (512,512,3),n_filters = 64,batchnorm = True,dropout = 0.1):
+def unet_2D(pretrained_weights = None,input_size = (256,256,3),n_filters = 64,batchnorm = True,dropout = 0.1):
     inputs = Input(input_size)
     c1 = conv2d_block(inputs, n_filters * 1, kernel_size = 3, batchnorm = batchnorm)
     p1 = MaxPooling2D((2, 2))(c1)
