@@ -42,10 +42,10 @@ class mySegmenter(object):
 		#img = np.reshape(img,(img.shape + (1,)))
 		img = np.reshape(img,((1,)+img.shape))
 		result = self.model.predict_on_batch(img)[0]
-		result[np.where(result <= 0.5)] = 0
-		result[np.where(result > 0.5)] = 255
+		result[np.where(result <= 0.95)] = 0
+		result[np.where(result > 0.95)] = 255
 		if visible:
-			cv2.imshow(result)
+			cv2.imshow('hehe', result)
 		cv2.imwrite(savePath,result)
 		return result
 
