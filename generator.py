@@ -6,7 +6,6 @@ from keras.utils import Sequence
 #import imgaug as ia
 #from imgaug import augmenters as iaa
 from PIL import Image
-import tool
 from keras.utils import Sequence
 # missing resize functianality
 class ImageSequence(Sequence):

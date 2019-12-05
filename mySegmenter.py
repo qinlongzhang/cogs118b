@@ -1,24 +1,21 @@
 import os
-import pandas as pd
 import numpy as np
 import keras.backend as K
 from keras.models import load_model
 from keras.callbacks import CSVLogger,EarlyStopping,ReduceLROnPlateau,TensorBoard,ModelCheckpoint
 from keras.optimizers import Adam, SGD
-from keras.utils.training_utils import multi_gpu_model
 from keras.models import *
 #import scipy.misc
 #import matplotlib.pyplot as plt
 from networks import unet_2D
 from generator import ImageSequence
-import tool
 from PIL import Image
 from networks import dice_coefficient
 from networks import dice_coefficient_loss
 class mySegmenter(object):
 	model = None
 
-	def __init__(self,configfilepath):
+	def __init__(self):
 		self.model = None
 
 	def train(self, logDir, trainImgDir,trainMskDir, valImgDir,valMskDir):
