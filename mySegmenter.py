@@ -1,12 +1,10 @@
 import os
 import cv2
-import pandas as pd
 import numpy as np
 import keras.backend as K
 from keras.models import load_model
 from keras.callbacks import CSVLogger,EarlyStopping,ReduceLROnPlateau,TensorBoard,ModelCheckpoint
 from keras.optimizers import Adam, SGD
-from keras.utils.training_utils import multi_gpu_model
 from keras.models import *
 #import scipy.misc
 #import matplotlib.pyplot as plt
