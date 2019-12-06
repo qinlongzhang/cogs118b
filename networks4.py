@@ -79,17 +79,17 @@ def unet_2D(pretrained_weights = None,input_size = (256,256,3),n_filters = 64,ba
     u7 = Conv2DTranspose(n_filters * 4, (3, 3), strides = (2, 2), padding = 'same')(c6)
     u7 = concatenate([u7, c3])
     u7 = Dropout(dropout)(u7)
-    c7 = conv2d_block(u7, n_filters * 4, kernel_size = 3, strides=(1,1), padding = 'same', batchnorm = batchnorm)
+    c7 = conv2d(u7, n_filters * 4, kernel_size = 3, strides=(1,1), padding = 'same', batchnorm = batchnorm)
     
     u8 = Conv2DTranspose(n_filters * 2, (3, 3), strides = (2, 2), padding = 'same')(c7)
     u8 = concatenate([u8, c2])
     u8 = Dropout(dropout)(u8)
-    c8 = conv2d_block(u8, n_filters * 2, kernel_size = 3, strides=(1,1), padding = 'same', batchnorm = batchnorm)
+    c8 = conv2d(u8, n_filters * 2, kernel_size = 3, strides=(1,1), padding = 'same', batchnorm = batchnorm)
     
     u9 = Conv2DTranspose(n_filters * 1, (3, 3), strides = (2, 2), padding = 'same')(c8)
     u9 = concatenate([u9, c1])
     u9 = Dropout(dropout)(u9)
-    c9 = conv2d_block(u9, n_filters * 1, kernel_size = 3, strides=(1,1), padding = 'same', batchnorm = batchnorm)
+    c9 = conv2d(u9, n_filters * 1, kernel_size = 3, strides=(1,1), padding = 'same', batchnorm = batchnorm)
 
     outputs = Conv2D(1,(1,1),activation = 'sigmoid')(c9)
     model = Model(input = inputs, output = outputs)
