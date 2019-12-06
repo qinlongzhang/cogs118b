@@ -62,7 +62,41 @@ class ImageSequence(Sequence):
 			seed = np.random.randint(50)
 			random.Random(seed).shuffle(self.imgList)
 			random.Random(seed).shuffle(self.mskList)
+	
+         def augmentationChannel(self):
+        	return iaa.SomeOf(1, [
+            		iaa.OneOf([
+                	iaa.Multiply((0.5, 1.5)),
+                	iaa.Add((-30, 60)),
+            		]),
+            		iaa.OneOf([
+                	iaa.AdditiveGaussianNoise(loc=0, scale=(0.0, 0.05 * 255), per_channel=0.5),
+                	iaa.Sharpen(alpha=(0.0, 1.0), lightness=(0.85, 1.5)),
+               		iaa.Emboss(alpha=(0.0, 1.0), strength=(0.9, 1.5)),
+            		]),
+            		iaa.OneOf([
+                		iaa.GaussianBlur(sigma=(0.0, 1.2)),
+                		iaa.AverageBlur(k=(2, 7)),
+                		iaa.MedianBlur(k=(3, 11)),
+                		iaa.Noop(),
+            			]
+           			)
+        		])
 
-
+    	def augmentationAffine(self):
+        	return iaa.SomeOf(1, [
+            	   	iaa.Affine(scale=0.5),
+            		iaa.Fliplr(0.5),
+            		iaa.Flipud(0.5),
+       	 		])
+				   
+			
+		
+			
+			
+         	
+			
+	
+	
 
 
