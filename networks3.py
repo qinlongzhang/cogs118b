@@ -1,6 +1,6 @@
 from keras import backend as K
 from keras.engine import Input, Model
-from keras.layers import Conv2D, MaxPooling2D, UpSampling2D, Dropout, BatchNormalization, Activation, Conv2DTranspose
+from keras.layers import Conv2D, MaxPooling2D, UpSampling2D, Dropout, BatchNormalization, Activation, Conv2DTranspose, AveragePooling2D
 from keras.optimizers import Adam, SGD
 from keras.layers.merge import concatenate
 from functools import partial
@@ -57,19 +57,19 @@ def conv2d_block(input_tensor, n_filters, kernel_size = 3, batchnorm = True):
 def unet_2D(pretrained_weights = None,input_size = (256,256,3),n_filters = 64,batchnorm = True,dropout = 0.1):
     inputs = Input(input_size)
     c1 = conv2d_block(inputs, n_filters * 1, kernel_size = 3, batchnorm = batchnorm)
-    p1 = MaxPooling2D((2, 2))(c1)
+    p1 = AveragePooling2D((2, 2))(c1)
     p1 = Dropout(dropout)(p1)
     
     c2 = conv2d_block(p1, n_filters * 2, kernel_size = 3, batchnorm = batchnorm)
-    p2 = MaxPooling2D((2, 2))(c2)
+    p2 = AveragePooling2D((2, 2))(c2)
     p2 = Dropout(dropout)(p2)
     
     c3 = conv2d_block(p2, n_filters * 4, kernel_size = 3, batchnorm = batchnorm)
-    p3 = MaxPooling2D((2, 2))(c3)
+    p3 = AveragePooling2D((2, 2))(c3)
     p3 = Dropout(dropout)(p3)
     
     c4 = conv2d_block(p3, n_filters * 8, kernel_size = 3, batchnorm = batchnorm)
-    p4 = MaxPooling2D((2, 2))(c4)
+    p4 = AveragePooling2D((2, 2))(c4)
     p4 = Dropout(dropout)(p4)
     
     c5 = conv2d_block(p4, n_filters = n_filters * 16, kernel_size = 3, batchnorm = batchnorm)
