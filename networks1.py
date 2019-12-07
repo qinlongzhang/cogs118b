@@ -79,27 +79,27 @@ def unet_2D(pretrained_weights = None,input_size = (256,256,3),n_filters = 64,ba
     c6 = conv2d_block(p5, n_filters = n_filters * 32, kernel_size = 3, batchnorm = batchnorm)
     
     # Expansive Path
-    u7 = Conv2DTranspose(n_filters * 16, (3, 3), strides = (2, 2), padding = 'same')(c5)
+    u7 = Conv2DTranspose(n_filters * 16, (3, 3), strides = (2, 2), padding = 'same')(c6)
     u7 = concatenate([u7, c5])
     u7 = Dropout(dropout)(u7)
     c7 = conv2d_block(u7, n_filters * 16, kernel_size = 3, batchnorm = batchnorm)
     
-    u8 = Conv2DTranspose(n_filters * 8, (3, 3), strides = (2, 2), padding = 'same')(c6)
+    u8 = Conv2DTranspose(n_filters * 8, (3, 3), strides = (2, 2), padding = 'same')(c7)
     u8 = concatenate([u8, c4])
     u8 = Dropout(dropout)(u8)
     c8 = conv2d_block(u8, n_filters * 8, kernel_size = 3, batchnorm = batchnorm)
     
-    u9 = Conv2DTranspose(n_filters * 4, (3, 3), strides = (2, 2), padding = 'same')(c7)
+    u9 = Conv2DTranspose(n_filters * 4, (3, 3), strides = (2, 2), padding = 'same')(c8)
     u9 = concatenate([u9, c3])
     u9 = Dropout(dropout)(u9)
     c9 = conv2d_block(u9, n_filters * 4, kernel_size = 3, batchnorm = batchnorm)
     
-    u10 = Conv2DTranspose(n_filters * 2, (3, 3), strides = (2, 2), padding = 'same')(c8)
+    u10 = Conv2DTranspose(n_filters * 2, (3, 3), strides = (2, 2), padding = 'same')(c9)
     u10 = concatenate([u10, c2])
     u10 = Dropout(dropout)(u10)
     c10 = conv2d_block(u10, n_filters * 2, kernel_size = 3, batchnorm = batchnorm)
     
-    u11 = Conv2DTranspose(n_filters * 1, (3, 3), strides = (2, 2), padding = 'same')(c8)
+    u11 = Conv2DTranspose(n_filters * 1, (3, 3), strides = (2, 2), padding = 'same')(c10)
     u11 = concatenate([u11, c1])
     u11 = Dropout(dropout)(u11)
     c11 = conv2d_block(u11, n_filters * 1, kernel_size = 3, batchnorm = batchnorm)
