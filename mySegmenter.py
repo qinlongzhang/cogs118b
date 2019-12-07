@@ -30,7 +30,7 @@ class mySegmenter(object):
 		callbacks = [checkpoint,early_stop,reduce_lr]
 
 		print("################start training###################")
-		self.model.fit_generator(generator = trainDataset,epochs = 200, verbose =1, validation_data = valDataset,callbacks = callbacks,shuffle = False)
+		self.model.fit_generator(generator = trainDataset,epochs = 11, verbose =1, validation_data = valDataset,callbacks = callbacks,shuffle = False)
 
 	def predictImg(self,filePath,modelpath,visible,savePath):
 		self.model = unet_2D(pretrained_weights = modelpath)
