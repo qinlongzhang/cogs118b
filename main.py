@@ -1,6 +1,6 @@
 from mySegmenter import mySegmenter
 
-mode = 'p'
+mode = 'train'
 
 mySeg = mySegmenter()
 
