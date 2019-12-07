@@ -111,7 +111,7 @@ def unet_2D(pretrained_weights = None,input_size = (256,256,3),n_filters = 64,ba
     if targetSize == 1: 
         model.compile(optimizer = SGD(lr = 1.4e-4) , loss = dice_coefficient_loss, metrics = [dice_coefficient])
     else:
-        model.compile(optimizer = SGD(lr = 1.4e-4), loss = 'categorical_crossentropy', metrics = ['categorical_accuracy'])
+        model.compile(optimizer = Adam(), loss = 'categorical_crossentropy', metrics = ['categorical_accuracy'])
 
     model.summary()
 
