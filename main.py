@@ -1,6 +1,6 @@
 from mySegmenter import mySegmenter
 
-mode = 'predict'
+mode = 'train'
 
 mySeg = mySegmenter()
 

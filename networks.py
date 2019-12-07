@@ -60,7 +60,7 @@ def conv2d_block(input_tensor, n_filters, kernel_size = 3, batchnorm = True):
 
     return x
 
-def unet_2D(pretrained_weights = None,input_size = (256,256,3),n_filters = 64,batchnorm = True,dropout = 0.1):
+def unet_2D(pretrained_weights = None,input_size = (256,256,3),n_filters = 64,batchnorm = True,dropout = 0.1,targetSize = 3):
     inputs = Input(input_size)
     c1 = conv2d_block(inputs, n_filters * 1, kernel_size = 3, batchnorm = batchnorm)
     p1 = MaxPooling2D((2, 2))(c1)
@@ -101,10 +101,17 @@ def unet_2D(pretrained_weights = None,input_size = (256,256,3),n_filters = 64,ba
     u9 = Dropout(dropout)(u9)
     c9 = conv2d_block(u9, n_filters * 1, kernel_size = 3, batchnorm = batchnorm)
 
-    outputs = Conv2D(1,(1,1),activation = 'sigmoid')(c9)
+    if targetSize > 1:
+        outputs = Conv2D(targetSize,(1,1),activation = 'softmax')(c9)
+    else:
+        outputs = Conv2D(1,(1,1),activation = 'sigmoid')(c9)
+
     model = Model(input = inputs, output = outputs)
 
-    model.compile(optimizer = SGD(lr = 1.4e-4) , loss = dice_coefficient_loss, metrics = [dice_coefficient])
+    if targetSize == 1: 
+        model.compile(optimizer = SGD(lr = 1.4e-4) , loss = dice_coefficient_loss, metrics = [dice_coefficient])
+    else:
+        model.compile(optimizer = SGD(lr = 1.4e-4), loss = 'categorical_crossentropy', metrics = ['categorical_accuracy'])
 
     model.summary()
 
