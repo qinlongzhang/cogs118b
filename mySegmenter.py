@@ -29,9 +29,9 @@ class mySegmenter(object):
 		self.model = unet_2D()
 		early_stop = EarlyStopping(monitor = 'val_loss', patience = 5)
 		reduce_lr = ReduceLROnPlateau(monitor = 'val_loss')
-		#csv_logger = CSVLogger(self.config.epochResultFp)
+		csv_logger = CSVLogger(/Users/dichongshuo/Desktop/result.xlsx)
 		checkpoint = ModelCheckpoint(os.path.join(logDir, "{epoch:03d}-{val_loss:.4f}.h5"))
-		callbacks = [checkpoint,early_stop,reduce_lr]
+		callbacks = [csv_logger,checkpoint,early_stop,reduce_lr]
 
 		print("################start training###################")
 		self.model.fit_generator(generator = trainDataset,epochs = 10, verbose =1, validation_data = valDataset,callbacks = callbacks,shuffle = False)
