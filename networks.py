@@ -104,7 +104,7 @@ def unet_2D(pretrained_weights = None,input_size = (256,256,3),n_filters = 64,ba
     outputs = Conv2D(1,(1,1),activation = 'sigmoid')(c9)
     model = Model(input = inputs, output = outputs)
 
-    model.compile(optimizer = Adam() , loss = dice_coefficient_loss, metrics = [dice_coefficient])
+    model.compile(optimizer = SGD() , loss = dice_coefficient_loss, metrics = [dice_coefficient])
 
     model.summary()
 

@@ -24,7 +24,7 @@ class mySegmenter(object):
 		valDataset = ImageSequence(imgDir = valImgDir,mskDir = valMskDir,shuffle = True,batchSize = 2)
 		self.model = unet_2D()
 		early_stop = EarlyStopping(monitor = 'val_loss', patience = 5)
-		reduce_lr = ReduceLROnPlateau(monitor = 'val_loss')
+		reduce_lr = ReduceLROnPlateau(monitor = 'val_loss', factor = 0.5)
 		#csv_logger = CSVLogger(self.config.epochResultFp)
 		checkpoint = ModelCheckpoint(os.path.join(logDir, "{epoch:03d}-{val_loss:.4f}.h5"))
 		callbacks = [checkpoint,early_stop,reduce_lr]
