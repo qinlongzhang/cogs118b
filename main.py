@@ -1,6 +1,6 @@
 from mySegmenter import mySegmenter
 
-mode = 'p'
+mode = 'train'
 TRAIN_IMG_DIR = './images/train/img/'
 TRAIN_MASK_DIR = './images/train/mask_mt/'
 VAL_IMG_DIR = './images/val/img/'

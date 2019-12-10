@@ -8,11 +8,11 @@ from keras.optimizers import Adam, SGD
 from keras.models import *
 #import scipy.misc
 #import matplotlib.pyplot as plt
-from networks import unet_2D
+from networks6 import unet_2D
 from generator import ImageSequence
 from PIL import Image
-from networks import dice_coefficient
-from networks import dice_coefficient_loss
+from networks6 import dice_coefficient
+from networks6 import dice_coefficient_loss
 from parseResult import parseResult
 
 CLASS_CONFIG = [[127, 63, 128], [70, 70, 70], [0, 0, 0]]
@@ -29,7 +29,7 @@ class mySegmenter(object):
 		self.model = unet_2D()
 		early_stop = EarlyStopping(monitor = 'val_loss', patience = 5)
 		reduce_lr = ReduceLROnPlateau(monitor = 'val_loss')
-		csv_logger = CSVLogger(‘/Users/dichongshuo/Desktop/result.xlsx’)
+		csv_logger = CSVLogger("/Users/dichongshuo/Desktop/result.xlsx")
 		checkpoint = ModelCheckpoint(os.path.join(logDir, "{epoch:03d}-{val_loss:.4f}.h5"))
 		callbacks = [csv_logger,checkpoint,early_stop,reduce_lr]
 
