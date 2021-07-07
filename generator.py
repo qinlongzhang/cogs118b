@@ -31,6 +31,7 @@ class ImageSequence(Sequence):
 		rowLen = img.shape[0]
 		colLen = img.shape[1]
 
+
 		for rdx in range(rowLen):
 			for cdx in range(colLen):
 				for idx in range(len(self.classConfig)):
@@ -38,6 +39,7 @@ class ImageSequence(Sequence):
 						conversion = np.zeros(len(self.classConfig))
 						conversion[idx] = 1
 						imgTemp[rdx][cdx] = conversion
+						break
 
 		
 		return np.asarray(imgTemp)
@@ -110,7 +112,7 @@ class ImageSequence(Sequence):
 			msk = np.reshape(msk,((1,)+msk.shape))
 			img = img[0]
 			msk = msk[0]
-			if len(self.classConfig == 2):
+			if len(self.classConfig) == 2:
 				msk[np.where(msk!=0)] = 1
 				msk = np.reshape(msk,msk.shape+(1,))
 			else:
